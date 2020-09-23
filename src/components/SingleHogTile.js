@@ -18,7 +18,8 @@ export default class SingleHogTile extends Component{
         return(
 
             <div className="ui grid container">
-            {this.props.hogs.map(hog =>{
+            {this.props.hogs.map(hog =>{ 
+                
 
                 let pigPic = hog.name.replace(/ /g, "_" ).toLowerCase()
                 let pigImage = require(`../hog-imgs/${pigPic}.jpg`)
@@ -29,9 +30,9 @@ export default class SingleHogTile extends Component{
                     <img src={pigImage}></img>
                     {this.props.clickedPigs.includes(hog.name) ? 
                    <div>
-                       <p>{hog.specialty}</p>
-                       <p>{hog.weight}</p>
-                    <p>{hog['highest medal achieved']}</p>
+                       <p>{`Specialty: ${hog.specialty}`}</p>
+                       <p>{`Weight: ${hog.weight}`}</p>
+                    <p>{`Highest Medal Achieved: ${hog['highest medal achieved']}`}</p>
                     {hog.greased ? <p>Greased: Yes</p> : <p>Greased: No</p>}
                     
                       

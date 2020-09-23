@@ -24,39 +24,39 @@ this.setState({
 
 }
 
-changeFilter = (value) => {
-    this.setState({ 
-        filterA: value 
-      })
-}
+// changeFilter = (value) => {
+//     this.setState({ 
+//         filterA: value 
+//       })
+// }
 
-changeSort = (value) => { 
-    this.setState({ 
-      sort: value 
-    })
+// changeSort = (value) => { 
+//     this.setState({ 
+//       sort: value 
+//     })
   
-  }
+//   }
 
-changeDisplay = () => {
-    let newHogs = [...this.state.hogsArray]
-    if(this.state.filterA === "true"){
-        newHogs = newHogs.filter(hog => {hog.greased === this.state.filterA
-            console.log(this.state.filterA)
-        }
-        )
+changeFilter = (value) => {
+    console.log(value)
+    switch(value){
+        case 'filter':
+            this.setState({
+                hogsArray: this.state.hogsArray.filter(hog => hog.greased)
+            })
+            break
+        case 'name':
+            this.setState({
+                hogsArray: this.state.hogsArray.sort((a, b) => a.name.localeCompare(b.name))
+            })
+            break
+        case 'weight': 
+            this.setState({
+                hogs: this.state.hogsArray.sort((a, b) => a.weight - b.weight )
+            })
+        default:
+            // console.log("Not a choice")
     }
-    
-
-    if(this.state.sort !== "All"){ 
-
-        if(this.state.sort == "Alphabetically") 
-           { return newHogs.sort((a,b) => a.name > b.name? 1: -1)}
-
-        if(this.state.sort == "Weight") 
-            {return newHogs.sort((a,b) => a.weight < b.weight? 1: -1)}
-    
-      }
-    return newHogs
 
 }
 
@@ -66,12 +66,12 @@ render(){
     return(
         <div>
             <div>
-                <SearchBar changeFilterProp={this.changeFilter} changeSortProp={this.changeSort} sortState={this.state.sort}/>
+                <SearchBar changeFilter={this.changeFilter} />
             </div>
         <br/>
         <br/>
             <div >
-                <SingleHogTile hogs={this.changeDisplay()} detailClick={this.clickDetail} clickedPigs={this.state.clickedPigs}/> 
+                <SingleHogTile hogs={this.state.hogsArray} detailClick={this.clickDetail} clickedPigs={this.state.clickedPigs}/> 
             </div>
         </div>
     )
